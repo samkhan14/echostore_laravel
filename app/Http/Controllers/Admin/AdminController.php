@@ -136,6 +136,7 @@ class AdminController extends Controller
                 $imgName = "";
             }
 
+
             $this->validate($request, $rules, $customMsgs);
             Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $data['name'], 'mobile' => $data['mobile'], 'image' => $imgName]);
             return redirect()->back()->with('success_message', 'Admin Details has been Updated');
