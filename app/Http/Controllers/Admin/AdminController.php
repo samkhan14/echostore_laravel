@@ -102,8 +102,6 @@ class AdminController extends Controller
     // LOGIC 6
     public function updateAdminDetails(Request $request)
     {
-        // echo"test";
-        // die;
         if ($request->isMethod('post')) {
             $data = $request->all();
 
