@@ -1,0 +1,1 @@
+1) current pas check is not working from ajax
