@@ -200,14 +200,14 @@ class AdminController extends Controller
 
                 $rules = [
                     'shop_name' => 'required|regex:/^[\pL\s\-]+$/u',
-                    'shop_mobile' => 'required|numeric',
+                    'shop_mobile_no' => 'required|numeric',
                 ];
 
                 $customMsgs = [
                     'shop_name.required' => 'Name is Must',
                     'Shop_name.regex' => 'Valid name is required',
-                    'shop_mobile.required' => 'Mobile No is required',
-                    'shop_mobile.numeric' => 'Mobile No is Valid required'
+                    'shop_mobile_no.required' => 'Mobile No is required',
+                    'shop_mobile_no.numeric' => 'Mobile No is Valid required'
                 ];
 
                 // image upload code
@@ -223,8 +223,8 @@ class AdminController extends Controller
                         // upload the image
                         Image::make($imgtemp)->save($imgpath);
                     }
-                } elseif (!empty($data['currentAdminImage'])) {
-                    $imgName = $data['currentAdminImage'];
+                } elseif (!empty($data['current_address_proof_image'])) {
+                    $imgName = $data['current_address_proof_image'];
                 } else {
                     $imgName = "";
                 }
@@ -232,7 +232,7 @@ class AdminController extends Controller
                 $this->validate($request, $rules, $customMsgs);
 
                 VendorsBusinessDetails::where('id', Auth::guard('admin')->user()->vendor_id)->update([
-                    'name' => $data['name'], 'address' => $data['address'], 'city' => $data['city'], 'state' => $data['state'], 'country' => $data['country'], 'pincode' => $data['pincode'], 'mobile' => $data['mobile'], 'shop_website' => $data['shop_website'], 'address_proof' => $data['address_proof'], 'address_proof_image' => $imgName,
+                    'shop_name' => $data['shop_name'], 'shop_email'=> $data['shop_email'], 'shop_address' => $data['shop_address'], 'shop_city' => $data['shop_city'], 'shop_state' => $data['shop_state'], 'shop_country' => $data['shop_country'], 'shop_pincode' => $data['shop_pincode'], 'shop_mobile_no' => $data['shop_mobile_no'], 'shop_website' => $data['shop_website'], 'address_proof' => $data['address_proof'], 'address_proof_image' => $imgName, 'business_license_number' => $data['business_license_number'], 'gst_number'=> $data['gst_number'], 'pan_number'=> $data['pan_number'],
                 ]);
 
                 return redirect()->back()->with('success_message', 'Vendor Business Details has been Updated');
