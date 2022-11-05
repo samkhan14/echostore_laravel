@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,9 @@ Route::prefix('/admin')->namespace('App\Http\Controller\Admin')->group(function(
          Route::post('check-admin-password','AdminController@checkAdminPassword');
         //  Route::post('update-admin-details','AdminController@updateAdminDetails');
         Route::match(['get','post'], 'update-vendor-details/{slug}', [AdminController::class, 'updateVendorDetails']);
+
+        // view admins / subadmins / Vendors
+        Route::get('admins/{type?}', [AdminController::class, 'admins']);
     });
 
 

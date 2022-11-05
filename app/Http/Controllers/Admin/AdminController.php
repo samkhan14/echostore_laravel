@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\Vendor;
+use App\Models\VendorsBankDetails;
 use App\Models\VendorsBusinessDetails;
 use Illuminate\Support\Facades\Hash;
 use Image;
@@ -232,17 +233,59 @@ class AdminController extends Controller
                 $this->validate($request, $rules, $customMsgs);
 
                 VendorsBusinessDetails::where('id', Auth::guard('admin')->user()->vendor_id)->update([
-                    'shop_name' => $data['shop_name'], 'shop_email'=> $data['shop_email'], 'shop_address' => $data['shop_address'], 'shop_city' => $data['shop_city'], 'shop_state' => $data['shop_state'], 'shop_country' => $data['shop_country'], 'shop_pincode' => $data['shop_pincode'], 'shop_mobile_no' => $data['shop_mobile_no'], 'shop_website' => $data['shop_website'], 'address_proof' => $data['address_proof'], 'address_proof_image' => $imgName, 'business_license_number' => $data['business_license_number'], 'gst_number'=> $data['gst_number'], 'pan_number'=> $data['pan_number'],
+                    'shop_name' => $data['shop_name'], 'shop_email' => $data['shop_email'], 'shop_address' => $data['shop_address'], 'shop_city' => $data['shop_city'], 'shop_state' => $data['shop_state'], 'shop_country' => $data['shop_country'], 'shop_pincode' => $data['shop_pincode'], 'shop_mobile_no' => $data['shop_mobile_no'], 'shop_website' => $data['shop_website'], 'address_proof' => $data['address_proof'], 'address_proof_image' => $imgName, 'business_license_number' => $data['business_license_number'], 'gst_number' => $data['gst_number'], 'pan_number' => $data['pan_number'],
                 ]);
 
                 return redirect()->back()->with('success_message', 'Vendor Business Details has been Updated');
             }
             $vendorsDetails = VendorsBusinessDetails::where('id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
-        } elseif ($slug == "bank") {
-            # code...
+        }
+         // logic for bank details
+        elseif ($slug == "bank") {
+            if ($request->isMethod('post')) {
+                $data = $request->all();
+
+                $rules = [
+                    'account_holder_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'account_number' => 'required|numeric',
+                ];
+
+                $customMsgs = [
+                    'account_holder_name.required' => 'Account Holder Name is Must',
+                    'account_holder_name.regex' => 'Valid Account Holder Name is required',
+                    'account_number.required' => 'Account No is required',
+                    'account_number.numeric' => 'Account No is Valid required'
+                ];
+
+                $this->validate($request, $rules, $customMsgs);
+
+                VendorsBankDetails::where('id', Auth::guard('admin')->user()->vendor_id)->update([
+                    'account_holder_name' => $data['account_holder_name'], 'bank_name' => $data['bank_name'], 'account_number' => $data['account_number'], 'bank_ifsc_code' => $data['bank_ifsc_code']
+                ]);
+
+                return redirect()->back()->with('success_message', 'Vendor Bank Details has been Updated');
+            }
+            $vendorsDetails = VendorsBankDetails::where('id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         }
 
         return view('admin.update_vendor_details', compact('slug', 'vendorsDetails'));
+    }
+
+    // LOGIC 8
+    public function admins($type=null)
+    {
+        $admins = Admin::query();
+        if (!empty($type)) {
+            $admins = $admins->where('type', $type);
+            $title = ucfirst($type);
+        }
+        else {
+            $title = "All Admins/Subadmins/Vendors";
+        }
+
+        $admins = $admins->get()->toArray();
+
+        return view('admin.admins')->with(compact('admins','title'));
     }
 
     // class end
