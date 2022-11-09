@@ -240,7 +240,7 @@ class AdminController extends Controller
             }
             $vendorsDetails = VendorsBusinessDetails::where('id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         }
-         // logic for bank details
+        // logic for bank details
         elseif ($slug == "bank") {
             if ($request->isMethod('post')) {
                 $data = $request->all();
@@ -272,21 +272,29 @@ class AdminController extends Controller
     }
 
     // LOGIC 8
-    public function admins($type=null)
+    public function admins($type = null)
     {
+
         $admins = Admin::query();
         if (!empty($type)) {
             $admins = $admins->where('type', $type);
             $title = ucfirst($type);
-        }
-        else {
+        } else {
             $title = "All Admins/Subadmins/Vendors";
         }
 
         $admins = $admins->get()->toArray();
 
-        return view('admin.admins')->with(compact('admins','title'));
+        return view('admin.admins')->with(compact('admins', 'title'));
     }
 
+    // LOGIC 9
+    public function viewVendorDetails($id)
+    {
+        $vendorDetails = Admin::with('vendorPersonal', 'vendorBusinessDetails', 'vendorBankDetails')->where('id', $id)->first();
+        $vendorDetails = json_decode(json_encode($vendorDetails), true);
+        // dd($vendorDetails);
+        return view('admin.view_vendor_details')->with(compact('vendorDetails'));
+    }
     // class end
 }
