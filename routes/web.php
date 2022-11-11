@@ -43,6 +43,8 @@ Route::prefix('/admin')->namespace('App\Http\Controller\Admin')->group(function(
         Route::get('admins/{type?}', [AdminController::class, 'admins']);
         //view vendor details
         Route::get('view-vendor-details/{id}', [AdminController::class, 'viewVendorDetails']);
+        //update admin status using ajax
+        Route::post('update-admin-status', [AdminController::class, 'updateAdminStatus']);
     });
 
 
