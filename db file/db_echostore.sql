@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 30, 2022 at 06:05 PM
+-- Generation Time: Nov 14, 2022 at 09:51 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -47,8 +47,8 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`id`, `name`, `type`, `vendor_id`, `mobile`, `email`, `password`, `image`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Ahmed', 'superadmin', 0, '03422619541', 'superadmin@gmail.com', '$2y$10$OXVUyvPexEW1/UUqzT34Qe9F.4hXXBlUUqmWdq3.I0B2T2rJx4fui', '64817.jpg', 1, NULL, '2022-10-06 16:51:39'),
-(2, 'John', 'vendor', 2, '1548452124', 'john1429@gmailcom', '25f9e794323b453885f5181f1b624d0b', '', 1, NULL, NULL),
-(3, 'John', 'vendor', 1, '9874556321', 'dollyadmin@gmail.com', '$2a$12$3KuCVe4Zndmg/pGSAjLoY.LLXqUnwIpiSCfhRcxXpeOFE3XKDDR9y', '21129.webp', 1, NULL, '2022-10-19 02:30:17');
+(2, 'Khan', 'admin', 2, '1548452124', 'john1429@gmailcom', '25f9e794323b453885f5181f1b624d0b', '', 1, NULL, '2022-11-11 15:41:19'),
+(3, 'John', 'vendor', 1, '9874556321', 'dollyadmin@gmail.com', '$2a$12$3KuCVe4Zndmg/pGSAjLoY.LLXqUnwIpiSCfhRcxXpeOFE3XKDDR9y', '21129.webp', 0, NULL, '2022-11-11 15:42:18');
 
 -- --------------------------------------------------------
 
@@ -172,7 +172,8 @@ CREATE TABLE `vendors` (
 --
 
 INSERT INTO `vendors` (`id`, `name`, `address`, `city`, `state`, `country`, `pincode`, `mobile`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'John', 'sky towers North khi,karachi pk', 'karachi', 'Sindh', 'Paksitan', '00000', '9874556321', 'john1429@gmail.com', 0, NULL, '2022-10-19 02:30:17');
+(1, 'John', 'sky towers North khi,karachi pk', 'karachi', 'Sindh', 'Paksitan', '00000', '9874556321', 'dollyadmin@gmail.com', 0, NULL, '2022-10-19 02:30:17'),
+(2, 'Khan', 'sky towers North khi,karachi pk', 'karachi', 'Sindh', 'Paksitan', '00000', '9874556321', 'khan@gmail.com', 0, NULL, '2022-10-19 02:30:17');
 
 -- --------------------------------------------------------
 
@@ -183,10 +184,10 @@ INSERT INTO `vendors` (`id`, `name`, `address`, `city`, `state`, `country`, `pin
 CREATE TABLE `vendors_bank_details` (
   `id` bigint UNSIGNED NOT NULL,
   `vendor_id` int NOT NULL,
-  `account_holder_name` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bank_name` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_holder_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `account_number` int NOT NULL,
-  `bank_ifsc_code` int NOT NULL,
+  `bank_ifsc_code` bigint NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -196,7 +197,7 @@ CREATE TABLE `vendors_bank_details` (
 --
 
 INSERT INTO `vendors_bank_details` (`id`, `vendor_id`, `account_holder_name`, `bank_name`, `account_number`, `bank_ifsc_code`, `created_at`, `updated_at`) VALUES
-(1, 1, 'John Wren', 'Meezan Bank', 1561315, 213212, NULL, NULL);
+(1, 1, 'Sumaim Ahmed', 'Meezan Bank', 987450000, 213212, NULL, '2022-11-05 18:50:14');
 
 -- --------------------------------------------------------
 
@@ -230,7 +231,7 @@ CREATE TABLE `vendors_business_details` (
 --
 
 INSERT INTO `vendors_business_details` (`id`, `vendor_id`, `shop_name`, `shop_address`, `shop_city`, `shop_state`, `shop_country`, `shop_pincode`, `shop_mobile_no`, `shop_website`, `shop_email`, `address_proof`, `address_proof_image`, `business_license_number`, `gst_number`, `pan_number`, `created_at`, `updated_at`) VALUES
-(1, 1, 'John electronic store', '1233-c karachi', 'karachi', 'sindh', 'Pakistan', '98745', '987463215', 'sitemakers.pk', 'john1429@gmail.com', 'Passport', 'test.jpg', '987456321', '5484312', '25465412', NULL, NULL);
+(1, 1, 'John electronic store', '1233-c karachi', 'karachi', 'sindh', 'Pakistan', '98745', '987463215', 'sitemakers.pk', 'john1429@gmail.com', 'PAN', '12392.jpg', '111111111111', '111111111111', '11111111', NULL, '2022-11-03 15:22:52');
 
 --
 -- Indexes for dumped tables
@@ -334,7 +335,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vendors_bank_details`

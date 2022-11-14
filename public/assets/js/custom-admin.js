@@ -46,7 +46,7 @@ $(document).ready(function () {
                 }
             },
             error: function (resp) {
-                alert("something went wrong")
+                alert("something went wrong");
             },
         });
     });
