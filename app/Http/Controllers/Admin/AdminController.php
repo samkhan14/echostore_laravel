@@ -6,21 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use App\Models\Country;
 use App\Models\Vendor;
 use App\Models\VendorsBankDetails;
 use App\Models\VendorsBusinessDetails;
 use Illuminate\Support\Facades\Hash;
 use Image;
+use Session;
 
 class AdminController extends Controller
 {
     // admin dashboard
     // LOGIC 1
     public function dashboard()
-    {
+    // session for high light the sidebar menu from blade
+    {  Session::put('page', 'dashboard');
         return view('admin.dashboard');
     }
-
 
     // admin Login
     // LOGIC 2
@@ -268,7 +270,8 @@ class AdminController extends Controller
             $vendorsDetails = VendorsBankDetails::where('id', Auth::guard('admin')->user()->vendor_id)->first()->toArray();
         }
 
-        return view('admin.update_vendor_details', compact('slug', 'vendorsDetails'));
+        $countries = Country::where('status', 1)->get()->toArray();
+        return view('admin.update_vendor_details', compact('slug', 'vendorsDetails','countries'));
     }
 
     // LOGIC 8

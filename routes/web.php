@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\SectionController;
+use App\Models\Section;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +47,11 @@ Route::prefix('/admin')->namespace('App\Http\Controller\Admin')->group(function(
         Route::get('view-vendor-details/{id}', [AdminController::class, 'viewVendorDetails']);
         //update admin status using ajax
         Route::post('update-admin-status', [AdminController::class, 'updateAdminStatus']);
+        //sections
+        Route::get('sections', [SectionController::class, 'sections']);
+        // update section status
+        Route::post('update-section-status', [SectionController::class, 'updateSectionStatus']);
+
     });
 
 
