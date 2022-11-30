@@ -32,4 +32,49 @@ class SectionController extends Controller
         }
     }
 
+    // delete section
+    public function deleteSection($id)
+    {
+        Section::where('id', $id)->delete();
+        $msg = "Section has been deleted";
+        return redirect()->back()->with('success_message', $msg);
+    }
+
+    //Add or edit a section
+    public function addOrEditSection(Request $request, $id=null)
+    {
+        if ($id == "") {
+            $title = "Add Section";
+            $section = new Section;
+            $msg = "Section has been added";
+        }
+        else{
+            $title = "Edit Section";
+            $section = Section::find($id);
+            $msg = "Section has been Updated";
+        }
+
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+
+            $rules = [
+                'section_name' => 'required|regex:/^[\pL\s\-]+$/u'
+            ];
+
+            $customMsgs = [
+                'section_name.required' => 'Section Name is Must',
+            ];
+
+            $this->validate($request, $rules, $customMsgs);
+
+            $section->name = $data['section_name'];
+            $section->status = 1;
+            $section->save();
+            return redirect('admin/sections')->with('success_message', $msg);
+        }
+
+        return view('sections.add_edit_section')->with(compact('title', 'section', 'msg'));
+
+    }
+
 }

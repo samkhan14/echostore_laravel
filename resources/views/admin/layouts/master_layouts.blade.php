@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/ti-icons/css/themify-icons.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css')}}">
     <!-- endinject -->
+    <!-- DataTable css -->
+    <link rel="stylesheet" href="{{ asset('admin/css/twiter-bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ asset('admin/css/dataTables.bootstrap4.min.css')}}">
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
@@ -68,6 +71,7 @@
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
     <script src="{{asset('assets/js/Chart.roundedBarCharts.js')}}"></script>
     <!-- End custom js for this page-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

@@ -7,8 +7,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Sections</h4>
+                        <a class="btn btn-primary btn-sm" href="{{ url('admin/add-edit-section')}}">Add Section</a>
                         <div class="table-responsive pt-3">
-                            <table class="table table-bordered">
+                            @if (Session::has('success_message'))
+                            <div class="alert alert-success" role="alert">
+                                {{ Session::get('success_message') }}
+                            </div>
+                            @endif
+                            <table id="sections" class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>
@@ -43,8 +49,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('section/view-vendor-details/'.$section['id'])}}">
-                                                <i style="font-size:25px;" class="mdi mdi-file-document-box"></i>
+                                            <a href="{{ url('admin/add-edit-section/'.$section['id'])}}">
+                                                <i style="font-size:25px;" class="mdi mdi-pencil-box"></i>
+                                            </a>
+                                 <a href="javascript:void(0)" class="confirm_delete" module="section" moduleid="{{ $section['id'] }}">
+                                                <i style="font-size:25px;" class="mdi mdi-file-excel-box"></i>
                                             </a>
                                         </td>
                                     </tr>
