@@ -1,1 +1,23 @@
+#Issues
+----------------------
 1) current pas check is not working from ajax
+
+
+#Functionalities Review
+---------------------------------------------------------------------
+1)    simple[
+        "setup for admin template",
+        "Make Prefix for Routes"
+        ]
+
+2)   Multi Auth:[
+
+    [#admin types
+        "superadmin" => 1,
+        "admins" => "many",
+        "subadmins" => "many",
+        "vendor" => "many",
+   ],
+
+
+   ]
